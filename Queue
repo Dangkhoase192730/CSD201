@@ -1,0 +1,90 @@
+Queue:
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package queue;
+
+/**
+ *
+ * @author ACER
+ */
+public class Queue {
+
+    /**
+     * @param args the command line arguments
+     */
+    private Node front;
+    private int lenghth;
+    
+    public class Node{
+        private String value;
+        private Node next;
+        
+        public Node(String value) {
+            this.value = value;
+            this.next = null;
+        }
+    }
+    
+    public Queue(){
+        this.front = null;
+        this.lenghth = 0;
+    }
+    
+    public boolean isEmpty() {
+        return this.lenghth == 0;
+    }
+    
+    public void enqueue(String value) { //insert at end
+        Node newNode = new Node(value);
+        if(this.isEmpty()) {
+            this.front = newNode;
+            this.lenghth++;
+            return;
+        }
+        
+        Node current = this.front;
+        while(current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+        this.lenghth++;
+    }
+    
+    public void print() {
+        Node current = this.front;
+        while(current != null) {
+            System.out.print(current.value + " -> ");
+            current = current.next;
+        }
+        System.out.println("null");
+    }
+    
+    public Node dequeue() { //delete at beginning
+        if(this.isEmpty()) {
+            return null;
+        }
+        Node tmp = this.front;
+        this.front = this.front.next;
+        this.lenghth--;
+        return tmp;
+    }
+    
+    public static void printBinaryNumberss(int n) {
+        Queue queue = new Queue();
+        queue.enqueue("1");
+        for(int i=0; i< n; i++) {
+            Node temp = queue.dequeue();
+            System.out.print(temp.value + " ");
+            queue.enqueue(temp.value + "0");
+            queue.enqueue(temp.value + "1");          
+        }
+    }
+    public static void main(String[] args) {
+        printBinaryNumberss(15);
+        
+    }
+}
+    
+
